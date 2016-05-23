@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'maven'
 
 group = 'net.vivin'
-version = '1.0.0'
+version = '1.0-SNAPSHOT'
 
 description = "GenericTree: N-ary trees in Java"
 
@@ -17,4 +17,22 @@ dependencies {
 
 test {
     useTestNG()
+}
+
+// Add following configuration parameters to ~/.gradle/gradle.properties
+// mavenSnapshots=Maven snapshots url
+// mavenReleases=Maven releases url
+// mavenUser=Maven deployment user
+// mavenPass=Maven deployment password
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: mavenReleases) {
+                authentication(userName: mavenUser, password: mavenPass)
+            }
+            snapshotRepository(url: mavenSnapshots) {
+                authentication(userName: mavenUser, password: mavenPass)
+            }
+        }
+    }
 }
